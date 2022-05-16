@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html ng-app="plunker">
+  <head>
+    <meta charset="utf-8" />
+    <title>AngularJS Plunker</title>
+    <script>
+      document.write('<base href="' + document.location + '" />');
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="style.css" />
+    <script
+      data-require="angular.js@1.4.x"
+      src="https://code.angularjs.org/1.4.8/angular.js"
+      data-semver="1.4.8"
+    ></script>
+    <script
+      data-require="lodash.js@*"
+      data-semver="3.10.0"
+      src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.0/lodash.js"
+    ></script>
+    <script src="app.js"></script>
+  </head>
+
+  <body ng-controller="MainCtrl as main">
+    <div class="container">
+      <div ng-if="!main.enableEdit" class="border mt-4 shadow p-4">
+        <h2>Registration Form</h2>
+        <form ng-submit="main.submit(main.name, main.email, main.phone, main.address)">
+            <input type="text" class="form-control mb-2" ng-model="main.name" placeholder="Enter name" required>
+            <input type="email" class="form-control mb-2" placeholder="Enter email" ng-model="main.email" required>
+            <input type="text" class="form-control mb-2" placeholder="Enter phone no" ng-model="main.phone" required>
+            <input type="text" class="form-control mb-2" placeholder="Enter address" ng-model="main.address" required>
+
+            <button class="btn btn-warning" type="submit" ng-click="">Add</button>
+        </form>
+      </div>
+
+
+
+      <br>
+      <table class="table" ng-hide="main.enableEdit">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Address</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in main.data">
+            <th scope="row"></th>
+            <td> {{ item.name }}</td>
+            <td> {{ item.email }} </td>
+            <td> {{ item.phone }} </td>
+            <td> {{ item.address }} </td>
+            <td>
+                <button
+                    type="button"
+                    class="btn btn-primary btn-sm"
+                    ng-click="main.editClick(item.name, item.email, item.phone, item.address, item._id)"
+                >edit
+                </button>
+
+                <button
+                    type="button"
+                    class="btn btn-danger btn-sm"
+                    ng-click="main.remove(item._id)"
+                >delete
+                </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!--Edit data form-->
+      <div class="form-group border p-4 shadow" ng-if="main.enableEdit">
+        <h1>Edit Data</h1>
+        <input class="form-control mb-2" type="text" ng-model="main.name" />
+        <input class="form-control mb-2" type="text" ng-model="main.email" />
+        <input class="form-control mb-2" type="text" ng-model="main.phone" />
+        <input class="form-control mb-2" type="text" ng-model="main.address" />
+
+        <input
+          class="btn btn-primary"
+          type="button"
+          value="update"
+          ng-click="main.update(main.eid, main.name, main.email, main.phone, main.address)"
+        />
+      </div>
+
+
+    </div>
+  </body>
+</html>
